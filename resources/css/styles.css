@@ -1,0 +1,73 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@font-face {
+  font-family: "Outfit";
+  src: url("/site/public/Outfit/static/Outfit-Regular.ttf");
+  font-weight: 400; /* Regular */
+  font-style: normal;
+  font-display: swap; /* Optional but recommended for better user experience */
+}
+@font-face {
+  font-family: "Outfit-bold";
+  src: url("/site/public/Outfit/static/Outfit-Bold.ttf");
+  font-weight: 700; /* Bold */
+  font-style: normal;
+  font-display: swap; /* Optional but recommended for better user experience */
+}
+@font-face {
+  font-family: "Outfit-medium";
+  src: url("/site/public/Outfit/static/Outfit-Medium.ttf");
+  font-weight: 400; /* Medium */
+  font-style: normal;
+  font-display: swap; /* Optional but recommended for better user experience */
+}
+
+body {
+  font-family: "Outfit", sans-serif;
+  color: #252525;
+}
+
+/* header css */
+#main-header nav {
+  font-family: Outfit-medium, sans-serif;
+}
+/* all headings use Outfit */
+
+h1,
+h2 {
+  font-family: Outfit-bold, sans-serif;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #ffffff; /* White arrows */
+}
+.swiper-pagination-bullet {
+  background: #ffffff;
+  opacity: 0.7;
+}
+.swiper-pagination-bullet-active {
+  background: #e50914; /* Theme Primary */
+  opacity: 1;
+}
+.dots-swiper .swiper-pagination-bullet {
+  background-color: #999999; /* secondary text grey */
+  opacity: 1;
+}
+
+.dots-swiper .swiper-pagination-bullet-active {
+  background-color: #e50914; /* theme primary red */
+}
+
+.blogs-swiper .swiper-slide {
+  display: flex; /* center content */
+  justify-content: center;
+}
+.blogs-swiper .swiper-slide > div {
+  width: 100%; /* full responsive */
+  max-width: 320px; /* optional max width */
+}

@@ -1,0 +1,8 @@
+@include('includes/header')
+@include('home/navbar')
+@include('home/hero_carousel')
+@include('home/car_cate')
+@include('home/card')
+@include('home/partener_blog')
+@include('home/review')
+@include('includes/footer')
