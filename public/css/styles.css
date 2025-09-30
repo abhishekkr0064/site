@@ -6,21 +6,21 @@
 
 @font-face {
   font-family: "Outfit";
-  src: url("/site/public/Outfit/static/Outfit-Regular.ttf");
+  src: url("../Outfit/static/Outfit-Regular.ttf");
   font-weight: 400; /* Regular */
   font-style: normal;
   font-display: swap; /* Optional but recommended for better user experience */
 }
 @font-face {
   font-family: "Outfit-bold";
-  src: url("/site/public/Outfit/static/Outfit-Bold.ttf");
+  src: url("../Outfit/static/Outfit-Bold.ttf");
   font-weight: 700; /* Bold */
   font-style: normal;
   font-display: swap; /* Optional but recommended for better user experience */
 }
 @font-face {
   font-family: "Outfit-medium";
-  src: url("/site/public/Outfit/static/Outfit-Medium.ttf");
+  src: url("../Outfit/static/Outfit-Medium.ttf");
   font-weight: 400; /* Medium */
   font-style: normal;
   font-display: swap; /* Optional but recommended for better user experience */

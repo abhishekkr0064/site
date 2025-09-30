@@ -236,6 +236,7 @@
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    @vite(['resources/js/script.js'])
+    {{-- @vite(['resources/js/script.js']) --}}
+    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 </html>

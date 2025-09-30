@@ -48,7 +48,8 @@
 
 
      {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-     @vite(['resources/css/styles.css'])
+     {{-- @vite(['resources/css/styles.css']) --}}
+     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 
 
   </head>
