@@ -1,0 +1,108 @@
+  <footer class="w-full mx-auto bg-textPrimary text-bgPrimary p-4 lg:p-6">
+      <div
+        class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10"
+      >
+        <!-- Logo & Description -->
+        <div>
+          <img src="{{asset('images/carent-logo.png')}}" alt="Logo" class="h-12 mb-4" />
+          <p class="text-sm text-textSecondary">
+           {{__('messages.footer_description')}}
+          </p>
+          <!-- Social Media -->
+          <div class="flex space-x-4 mt-6">
+            <a href="#" class="hover:text-red-500"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="hover:text-red-500"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="hover:text-red-500"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="hover:text-red-500"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- Explore -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">
+            {{__('messages.explore')}}
+          </h3>
+          <ul class="space-y-2 text-textSecondary">
+            <li><a href="{{route('pages.about-us')}}" class="hover:text-red-500"> {{__('messages.about_us')}} </a></li>
+            <li><a href="#" class="hover:text-red-500">{{__('messages.blog')}}</a></li>
+            <li><a href="{{route('pages.contact-us')}}" class="hover:text-red-500"> {{__('messages.contact_us')}} </a></li>
+          </ul>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">
+            {{__('messages.quick_links')}}
+          </h3>
+          <ul class="space-y-2 text-textSecondary">
+            <li>
+              <a href="{{route('pages.terms-conditions')}}" class="hover:text-red-500">
+                {{__('messages.terms_conditions')}}
+              </a>
+            </li>
+            <li><a href="#" class="hover:text-red-500">
+              {{__('messages.privacy_policy')}}
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Contact</h3>
+          <ul class="space-y-3 text-textSecondary">
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-map-marker-alt text-textSecondary"></i>
+              <span>Ajmer, India</span>
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-envelope text-textSecondary"></i>
+              <a href="mailto:bookings@carent-me.com" class="hover:text-primary"
+                >bookings@carent-me.com</a
+              >
+            </li>
+            <li class="flex items-center space-x-3">
+              <i class="fas fa-phone text-textSecondary"></i>
+              <a href="tel:+1234567890" class="hover:text-primary"
+                >+1 234 567 890</a
+              >
+            </li>
+          </ul>
+
+          <!-- App Store & Play Store Buttons -->
+          <div class="mt-5 flex items-center gap-4">
+            <a
+              href="https://www.apple.com/app-store/"
+              class="flex items-center bg-bgPrimary text-textPrimary space-x-3 py-1 px-2 rounded-lg"
+            >
+              <i class="fab fa-apple text-2xl"></i>
+              <span class="text-xs font-outfit"
+                >Download on the <br /><strong>App Store</strong></span
+              >
+            </a>
+            <a
+              href="https://www.bing.com/ck/a?!&&p=96fc6b8973b027c47a5f9ec9af721d983c1cd87de9c7f9ca216a68079fe0088fJmltdHM9MTc2MDA1NDQwMA&ptn=3&ver=2&hsh=4&fclid=14f7e611-75ce-65fb-1905-f390748b647a&psq=google+play+store&u=a1aHR0cHM6Ly9wbGF5Lmdvb2dsZS5jb20v"
+              class="flex items-center bg-white text-textPrimary space-x-4 py-1 px-2 rounded-lg"
+            >
+              <img src="{{asset('images/playstore.svg')}}" alt="playstore" />
+              <span class="text-xs font-outfit"
+                >Get it on <br /><strong>Google Play</strong></span
+              >
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Text -->
+      <div class="mt-10 text-center text-textSecondary text-sm">
+        © 2025 CarEnt. All rights reserved.
+      </div>
+    </footer>

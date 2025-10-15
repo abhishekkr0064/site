@@ -1,56 +1,34 @@
-<footer class="bg-textPrimary text-bgPrimary py-12 px-6">
-    <div
-        class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10"
-      >
+    <!-- Footer Section -->
+    <footer class="w-full mx-auto bg-textPrimary text-bgPrimary p-4 lg:p-6 ">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         <!-- Logo & Description -->
-        <div>
-          <img src="{{asset('images/carent-logo.png')}}" alt="Logo" class="h-12 mb-4" />
+        <div class="max-w-[350px]">
+          <img src="{{asset('images/carent-logo.png')}}" alt="Logo" class="h-12 mb-5" />
           <p class="text-sm text-textSecondary">
-            Car Rental LLC is one of the leading car rental and leasing service
-            providers in Dubai, UAE. We offer both short-term car rentals and
-            lease solutions in the UAE, Bahrain, KSA, and Oman.
+            {{__('messages.footer_description')}}
           </p>
-          <!-- Social Media -->
-            <div class="flex space-x-4 mt-6">
-                <a href="#" class="hover:text-red-500"
-                ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a href="#" class="hover:text-red-500"
-                ><i class="fab fa-twitter"></i
-                ></a>
-                <a href="#" class="hover:text-red-500"
-                ><i class="fab fa-instagram"></i
-                ></a>
-                <a href="#" class="hover:text-red-500"
-                ><i class="fab fa-linkedin-in"></i
-                ></a>
-            </div>
         </div>
 
         <!-- Explore -->
         <div>
-          <h3 class="text-lg font-semibold mb-4">Explore</h3>
-          <ul class="space-y-2 text-textSecondary">
-            <li><a href="#" class="hover:text-red-500">About Us</a></li>
-            <li><a href="#" class="hover:text-red-500">Blog</a></li>
-            <li><a href="#" class="hover:text-red-500">Contact Us</a></li>
-          </ul>
-        </div>
-
-        <!-- Quick Links -->
-        <div>
-          <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+          <h3 class="text-lg font-semibold mb-4">{{__('messages.explore')}}</h3>
           <ul class="space-y-2 text-textSecondary">
             <li>
-              <a href="#" class="hover:text-red-500">Terms & Conditions</a>
+              <a href="{{ route('pages.about-us') }}" class="hover:text-red-500">{{__('messages.about_us')}}</a>
             </li>
-            <li><a href="#" class="hover:text-red-500">Privacy Policy</a></li>
+            <li><a href="#" class="hover:text-red-500">{{__('messages.blog')}}</a></li>
+            <li>
+              <a href="{{route('pages.contact-us')}}" class="hover:text-red-500"
+                >
+                {{__('messages.contact_us')}}</a
+              >
+            </li>
           </ul>
         </div>
 
         <!-- Contact -->
         <div>
-          <h3 class="text-lg font-semibold mb-4">Contact</h3>
+          <h3 class="text-lg font-semibold mb-4">{{__('messages.contact_us')}} </h3>
           <ul class="space-y-3 text-textSecondary">
             <li class="flex items-center space-x-3">
               <i class="fas fa-map-marker-alt text-textSecondary"></i>
@@ -69,41 +47,67 @@
               >
             </li>
           </ul>
-
-          <!-- App Store & Play Store Buttons -->
-            <div class="mt-5 flex items-center gap-4">
-                <a
-                href="#"
-                class="flex items-center bg-bgPrimary text-textPrimary space-x-3 py-1 px-2 rounded-lg"
-                >
-                <i class="fab fa-apple text-2xl"></i>
-                <span class="text-xs font-outfit"
-                    >Download on the <br /><strong>App Store</strong></span
-                >
-                </a>
-                <a
-                href="#"
-                class="flex items-center bg-white text-textPrimary space-x-4 py-1 px-2 rounded-lg"
-                >
-                <img src="{{asset('images/playstore.svg')}}" alt="playstore" />
-                <span class="text-xs font-outfit"
-                    >Get it on <br /><strong>Google Play</strong></span
-                >
-                </a>
-            </div>
         </div>
-    </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h3 class="text-lg font-semibold mb-4">{{__('messages.quick_links')}}</h3>
+          <ul class="space-y-2 text-textSecondary">
+            <li>
+              <a href="{{route('pages.terms-conditions')}}" class="hover:text-red-500">{{__('messages.terms_conditions')}}</a>
+            </li>
+            <li><a href="#" class="hover:text-red-500">{{__('messages.privacy_policy')}}</a></li>
+          </ul>
+          <!-- Social Media -->
+          <div class="flex space-x-4 mt-8">
+            <a href="#" class="hover:text-red-500"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="#" class="hover:text-red-500"
+              ><i class="fab fa-twitter"></i
+            ></a>
+            <a href="#" class="hover:text-red-500"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="#" class="hover:text-red-500"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- App Store & Play Store Buttons -->
+      <div class="overflow-hidden flex items-end justify-end gap-4 mt-5">
+        <a
+          href="https://www.apple.com/app-store/"
+          class="flex items-center bg-bgPrimary text-textPrimary space-x-2 py-1 px-2 rounded-lg"
+        >
+          <i class="fab fa-apple text-2xl"></i>
+          <span class="text-xs"
+            >Download on the <br /><strong>App Store</strong></span
+          >
+        </a>
+        <a
+          href="https://play.google.com/store/games?device=windows"
+          class="flex items-center bg-white text-textPrimary space-x-4 py-1 px-2 rounded-lg"
+        >
+          <img src="{{asset('images/playstore.svg')  }}" alt="playstore" />
+          <span class="text-xs font-outfit"
+            >Get it on <br /><strong>Google Play</strong></span
+          >
+        </a>
+      </div>
 
       <!-- Bottom Text -->
-    <div class="mt-10 text-center text-textSecondary text-sm">
-      © 2025 CarRent. All rights reserved.
-    </div>
-</footer>
+      <div class="mt-10 text-center text-textSecondary text-sm">
+        © 2025 CarEnt. All rights reserved.
+      </div>
+    </footer>
     <!-- WhatsApp Button (Bottom Left) -->
     <a
       href="https://wa.me/1234567890"
       target="_blank"
-      class="fixed bottom-5 left-5 rounded-bl-[50px] rounded-br-[50px] rounded-tl-xl rounded-tr-[50px] bg-[#25D366] p-[11px] text-white shadow md:p-4"
+      class="fixed bottom-5 left-5 rounded-bl-[50px] rounded-br-[50px] rounded-tl-xl rounded-tr-[50px] bg-[#25D366] p-[11px] text-white shadow md:p-4 z-50"
     >
       <svg
         stroke="currentColor"
@@ -119,14 +123,16 @@
         ></path>
       </svg>
     </a>
-
-    <!-- Request a Callback Button (Right Side Vertical) -->
-    <button
-      onclick="openModal()"
-      class="fixed bottom-1/2 right-0 transform translate-y-1/2 -rotate-90 origin-bottom-right bg-primary text-bgPrimary px-5 py-2 rounded-t-lg shadow-lg hover:bg-primaryHover transition z-50"
-    >
-      Request a Callback
-    </button>
+   <!-- Request a Callback Button (Right Side Vertical) -->
+    <div class="w-full flex justify-end">
+      <button
+        id="callbackBtn"
+        onclick="openModal()"
+        class="hidden fixed top-1/2 -right-14 -translate-y-1/2 -rotate-90 bg-primary text-bgPrimary text-sm px-3 py-2 rounded-t-lg hover:bg-primaryHover transition z-50"
+      >
+        {{__('messages.request_a_call_back')}}
+      </button>
+    </div>
 
     <!-- Modal Background -->
     <div
@@ -145,23 +151,25 @@
 
         <div>
           <h2 class="text-2xl font-bold text-textPrimary">
-            Request a Callback
+            {{__('messages.request_a_call_back')}}
           </h2>
           <p class="text-sm text-textSecondary my-2">
-            Fill in the details below to request a call back at your desire time
+            {{__('messages.fill_details_below')}}
           </p>
         </div>
 
         <!-- Callback Form -->
         <form class="space-y-4">
           <div
-            class="w-full flex items-center gap-2 border border-gray-300 rounded-lg"
-          >
+             class="w-full flex items-center gap-2 border border-borderDefault rounded-lg"
+            >
+
             <i class="fas fa-user text-textSecondary pl-2"></i>
             <input
               type="text"
+              name="name"
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
-              placeholder="Enter your name"
+              placeholder="{{__('messages.enter_your_name')}}"
               required
             />
           </div>
@@ -171,9 +179,10 @@
           >
             <i class="fas fa-phone text-textSecondary pl-2"></i>
             <input
-              type="text"
+              type="number"
+              name="phone"
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
-              placeholder="Phone"
+              placeholder="{{__('messages.phone')}}"
               required
             />
           </div>
@@ -183,9 +192,10 @@
           >
             <i class="fas fa-envelope text-textSecondary pl-2"></i>
             <input
-              type="text"
+              type="email"
+              name="email"
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
-              placeholder="Email"
+              placeholder="{{__('messages.email_add')}}"
               required
             />
           </div>
@@ -196,8 +206,9 @@
             <i class="fas fa-map-marker-alt text-textSecondary pl-2"></i>
             <input
               type="text"
+              name="from_location"
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
-              placeholder="From Location"
+              placeholder="{{__('messages.from_location')}}"
               required
             />
           </div>
@@ -208,8 +219,9 @@
             <i class="fas fa-map-marker-alt text-textSecondary pl-2"></i>
             <input
               type="text"
+              name="to_location"
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
-              placeholder="To Location"
+              placeholder="{{__('messages.to_location')}}"
               required
             />
           </div>
@@ -221,7 +233,7 @@
               name="message"
               id=""
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-lg"
-              placeholder="Message"
+              placeholder="{{__('messages.message')}}"
               required
             ></textarea>
           </div>
@@ -230,13 +242,16 @@
             type="submit"
             class="w-full bg-primary text-bgPrimary py-2 rounded-lg hover:bg-primaryHover transition"
           >
-            Submit Request
+            {{__('messages.submit')}}
           </button>
         </form>
       </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     {{-- @vite(['resources/js/script.js']) --}}
+    @include('includes.localization')
     <script src="{{ asset('js/script.js') }}"></script>
+
 </body>
 </html>

@@ -30,6 +30,11 @@ body {
   font-family: "Outfit", sans-serif;
   color: #252525;
 }
+/* Language and currency */
+  .selected {
+  background-color: #f0f8ff;
+  border: 1px solid #006AFF;
+}
 
 /* header css */
 #main-header nav {

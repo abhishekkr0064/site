@@ -1,6 +1,6 @@
     <!-- ===== Hero Carousel (Swiper) ===== -->
 <section
-      class="relative w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[450px]"
+      class="relative w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[450px] xl:h-[500px] mt-20"
     >
       <div class="hero-swiper h-full w-full">
         <!-- Slides -->
@@ -21,7 +21,7 @@
           </div>
           <div class="swiper-slide relative">
             <img
-              src="https://tse2.mm.bing.net/th/id/OIP._ic2wSvCEOYgL2P0z8x8CQHaEO?rs=1&pid=ImgDetMain&o=7&rm=3"
+              src="{{asset('images/image.png')}}"
               class="w-full h-full object-cover"
               alt="SUV Adventure"
             />
