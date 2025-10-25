@@ -157,7 +157,7 @@
       </div>
 
       <!-- Auth Popup -->
-      <div
+      {{-- <div
         id="auth-popup"
         class="fixed inset-0 flex items-center justify-center bg-black/50 z-50 hidden"
       >
@@ -210,7 +210,152 @@
             </a>
           </p>
         </div>
+      </div> --}}
+      <!-- Auth Popup -->
+    <div id="auth-popup" class="fixed inset-0 flex items-center justify-center bg-black/50 z-50 hidden">
+      <div class="bg-white rounded-xl shadow-lg p-6 w-full max-w-sm relative" role="dialog" aria-labelledby="auth-title"
+        aria-modal="true">
+        <!-- Close -->
+        <button id="close-auth" class="absolute top-3 right-3 text-textSecondary hover:text-primaryHover"
+          aria-label="Close">
+          ✕
+        </button>
+ 
+        <div class="hidden" id="login-form">
+          <!-- Header -->
+          <div class="text-center">
+            <h2 id="auth-title" class="text-[#252525] text-2xl font-bold flex gap-1 justify-start">
+              <span id="auth-title-text">Welcome to</span>
+              <img src="./assets/carent-logo.webp" alt="Carent Logo" class="w-20 h-auto" />
+            </h2>
+            <p id="auth-subtitle" class="text-start text-textSecondary text-sm my-3">Enter your email to enjoy the best
+              experience</p>
+          </div>
+ 
+          <!-- Dynamic form -->
+          <form onsubmit="event.preventDefault()" id="loginAuth-form"
+            class="space-y-3 flex flex-col justify-center items-center">
+            <div class="w-full">
+              <label class="block text-sm font-medium text-[#252525]">Enter Registered Email</label>
+              <input type="email"
+                class="mt-1 w-full border border-borderDefault rounded-lg p-2 focus:ring-1 focus:ring-primary"
+                placeholder="Enter your email" required />
+            </div>
+            <div class="w-full">
+              <label class="block text-sm font-medium text-[#252525]">Enter Registered Password</label>
+              <input type="password"
+                class="mt-1 w-full border border-borderDefault rounded-lg p-2 focus:ring-1 focus:ring-primary"
+                placeholder="Enter your password" required />
+            </div>
+            <button type="submit"
+              class="w-32 bg-[#006AFF] py-2 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition">Login</button>
+            <p class="text-center text-sm text-[#999999]">
+              Don't have an account?
+              <span id="show-signup" class="text-[#E50914] hover:text-[#D30000] cursor-pointer">Create an account</span>
+            </p>
+            <hr class="my-2 border border-borderDefault" />
+            <div
+              class="w-full flex items-center justify-center border border-borderDefault rounded-lg p-2 gap-2 cursor-pointer hover:bg-borderDefault">
+              <img src="./assets/google-icon.svg" alt="Google Sign-In" />
+              <span>Continue with Google</span>
+            </div>
+            <div
+              class="w-full flex items-center justify-center border border-borderDefault rounded-lg p-2 gap-2 cursor-pointer hover:bg-borderDefault">
+              <img src="./assets/apple-icon.svg" alt="Apple Sign-In" />
+              <span>Continue with Apple</span>
+            </div>
+          </form>
+          <!-- <form onsubmit="event.preventDefault(); UserSession.login(this); UserSession.userRegister(this); Auth.close()"
+            id="auth-form" class="space-y-3 flex flex-col justify-center items-center"></form> -->
+        </div>
+ 
+        <!-- signup form -->
+        <div class="" id="signup-form">
+ 
+          <!-- Header -->
+          <div class="text-center">
+            <h2 id="auth-title" class="text-[#252525] text-2xl font-bold flex gap-1 justify-start justify-center">
+              <img src="./assets/carent-logo.webp" alt="Carent Logo" class="w-20 h-auto" />
+            </h2>
+            <p id="auth-subtitle" class="text-center text-textPrimary text-md font-semibold my-3">Create a New Account
+            </p>
+          </div>
+ 
+          <form onsubmit="event.preventDefault()" id="signupAuth-form"
+            class="space-y-3 flex flex-col justify-center items-center">
+            <div class="w-full">
+              <input type="name"
+                class="w-full border border-borderDefault rounded-lg p-2 focus:ring-1 focus:ring-primary"
+                placeholder="Full Name" required />
+            </div>
+            <div class="w-full">
+              <input type="email"
+                class="w-full border border-borderDefault rounded-lg p-2 focus:ring-1 focus:ring-primary"
+                placeholder="Email Address" required />
+            </div>
+ 
+            <div>
+              <div class="flex items-center border border-borderDefault rounded-lg overflow-hidden">
+                <div id="countrySelect"
+                  class="relative py-3 w-24 px-1 bg-gray-100 border-r border-borderDefault text-sm flex items-center justify-between cursor-pointer">
+                  <img src="https://flagcdn.com/w20/in.png" alt="india">
+                  <span id="selectedCountry" class="flex items-center gap-1 text-sm">+91</span>
+                  <i class="fa-solid fa-caret-down"></i>
+                </div>
+ 
+                <input id="contactNumber" type="tel" name="contact" placeholder="Enter contact number" maxlength="10"
+                  oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)"
+                  class="w-full border-none rounded-r-lg p-2.5 focus:ring-1 focus:ring-primary" required />
+              </div>
+ 
+              <div id="countryList"
+                class="hidden absolute bg-white w-24 mt-1 border border-borderDefault rounded-md shadow-md z-50"></div>
+            </div>
+ 
+            <div class="w-full relative">
+              <input type="password" id="password"
+                class="w-full border border-borderDefault rounded-lg p-2 focus:ring-1 focus:ring-primary pr-10"
+                placeholder="Password" required />
+              <i class="fa-solid fa-eye absolute right-3 top-3 text-gray-400 cursor-pointer"
+                onclick="togglePasswordVisibility('password', this)"></i>
+            </div>
+ 
+            <div class="w-full relative">
+              <input type="password" id="confirm-pass"
+                class="w-full border border-borderDefault rounded-lg p-2 focus:ring-1 focus:ring-primary pr-10"
+                placeholder="Confirm Password" required />
+              <i class="fa-solid fa-eye absolute right-3 top-3 text-gray-400 cursor-pointer"
+                onclick="togglePasswordVisibility('confirm-pass', this)"></i>
+              <p id="password-error" class="text-red-500 text-xs mt-1 hidden">Passwords do not match</p>
+            </div>
+ 
+            <div class="w-full flex items-center justify-start gap-2">
+              <input type="checkbox" id="terms" required />
+              <label for="terms" class="text-sm">I agree to the <a href="#" class="text-[#E50914]">Terms &
+                  Conditions</a></label>
+            </div>
+ 
+            <button type="submit"
+              class="w-full bg-[#006AFF] py-2 text-white rounded-lg text-sm font-medium hover:bg-blue-700 transition">Sign
+              Up</button>
+ 
+            <p class="text-center text-sm text-textSecondary">
+              Already have an account?
+              <span id="show-login" class="text-primary hover:text-primaryHover cursor-pointer">Login</span>
+            </p>
+          </form>
+          <!-- <form onsubmit="event.preventDefault(); UserSession.login(this); UserSession.userRegister(this); Auth.close()"
+            id="auth-form" class="space-y-3 flex flex-col justify-center items-center"></form> -->
+        </div>
+        <!-- Footer -->
+        <p class="text-[#999999] text-xs text-center mt-6">
+          See our policies for
+          <a href="#" class="text-textPrimary font-medium hover:text-primary underline">
+            Terms & Conditions
+          </a>
+        </p>
       </div>
+    </div>
       
 
 
