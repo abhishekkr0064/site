@@ -41,6 +41,9 @@
             my_bookings: "{{ __('messages.my_bookings') }}",
             register_login: "{{ __('messages.register_login') }}",
             impact_of_tech: "{{ __('messages.impact_of_tech') }}",
+            error_msg:"{{ __('messages.error_msg') }}",
+            email_msg:"{{ __('messages.email_msg') }}",
+            contact_us_msg:"{{ __('messages.contact_us_msg') }}",
 
  
 
@@ -49,5 +52,6 @@
             car_booking:"{{route('pages.car-booking')}}",
             enquiry:"{{route('pages.enquiry')}}",
             terms:"{{route('pages.terms-conditions')}}",
+        
         };
     </script>

@@ -13,7 +13,7 @@
 
       <!-- Swiper -->
       <div class="w-full mx-auto">
-        <div class="swiper findCar-swiper dots-swiper" dir="rtl">
+        <div class="swiper findCar-swiper dots-swiper" >
           <div class="swiper-wrapper" id="car-wrapper-list"></div>
 
           <!-- Pagination -->

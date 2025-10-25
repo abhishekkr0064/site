@@ -1,5 +1,6 @@
 @include('includes.header')
 @include('home.navbar')
+
 <div>
 
     <!-- Breadcrumb -->
@@ -14,6 +15,7 @@
         </li>
       </ol>
     </nav>
+
     <!-- Full Page Background Wrapper -->
     <div id="form-container" class="relative min-h-screen w-full overflow-hidden">
       <!-- Background Image -->
@@ -60,7 +62,9 @@
           <!-- Heading -->
           <div class="text-start mb-6">
             <h2 class="text-lg font-semibold text-textPrimary">
-              <span class="currency-selection">IN</span> | <span id="ratePerDay" data-base-price="100"></span>
+              <span id="countryCodeDisplay">IND</span> | 
+              <span id="currencyCodeDisplay">INR</span> | 
+              <span id="ratePerDayDisplay">100</span> {{__('messages.per_day')}}
             </h2>
           </div>
 
@@ -76,12 +80,11 @@
                 <h4 class="flex items-center">
                   <img src="{{asset('images/saving-icon.svg')}}" alt="saving" width="32" />
                   <span class="text-[#0292FF] pr-1">{{__('messages.total')}}:</span>
-                   <span id="totalAmount" >100</span>
+                   <span id="totalAmount" ></span>
                 </h4>
               </div>
               <p class="text-textSecondary pl-2">
                  <span id="ratePerDay" data-base-price="100">100</span>
-                {{-- <span class="text-textPrimary">/day</span> --}}
               </p>
             </div>
             <button
@@ -94,21 +97,18 @@
         </div>
       </div>
     </div>
+
      <!--succes submit popup -->
     <div
       class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
       id="success-popup"
     >
       <div
-        class="shadow-lg rounded-lg bg-white w-72 text-center overflow-hidden"
+        class="shadow-lg rounded-lg bg-white w-80 text-center overflow-hidden"
       >
         <div class="p-6">
-          <h1 class="text-lg font-semibold mb-2">
-            {{ __('messages.success') }}
-          </h1>
-          <p class="text-gray-700 text-sm">
-            {{ __('messages.booking_msg') }}
-          </p>
+          <h1 class="text-lg font-semibold mb-2">Booking Submitted</h1>
+          <p class="text-gray-700 text-sm">Your booking has been submitted</p>
         </div>
 
         <hr class="border-t border-gray-300" />
@@ -125,6 +125,46 @@
     </div>
 
     <script>
+      // Currency configuration - FIXED RATES (1 INR = X Foreign Currency)
+      const currencyData = [
+        { code: "in", name: "India", currency: "INR", rate: 1 },
+        { code: "ma", name: "Morocco", currency: "MAD", rate: 0.12 }, // 1 INR = 0.12 MAD
+        { code: "sl", name: "Sierra Leone", currency: "SLE", rate: 275 }, // 1 INR = 275 SLE
+        { code: "bf", name: "Burkina Faso", currency: "XOF", rate: 7.4 }, // 1 INR = 7.4 XOF
+        { code: "ci", name: "Abidjan", currency: "XOF", rate: 7.4 },
+        { code: "ne", name: "Niger", currency: "XOF", rate: 7.4 },
+        { code: "gn", name: "Conakry", currency: "GNF", rate: 105 }, // 1 INR = 105 GNF
+        { code: "gm", name: "Gambia", currency: "GMD", rate: 0.77 }, // 1 INR = 0.77 GMD
+        { code: "tg", name: "Togo", currency: "XOF", rate: 7.4 },
+        { code: "sn", name: "Senegal", currency: "XOF", rate: 7.4 },
+        { code: "ml", name: "Mali", currency: "XOF", rate: 7.4 },
+      ];
+
+      // Map country codes to phone codes and flags
+      const countryPhoneMap = {
+        "in": { phoneCode: "+91", flag: "https://flagcdn.com/w20/in.png" },
+        "ma": { phoneCode: "+212", flag: "https://flagcdn.com/w20/ma.png" },
+        "sl": { phoneCode: "+232", flag: "https://flagcdn.com/w20/sl.png" },
+        "bf": { phoneCode: "+226", flag: "https://flagcdn.com/w20/bf.png" },
+        "ci": { phoneCode: "+225", flag: "https://flagcdn.com/w20/ci.png" },
+        "ne": { phoneCode: "+227", flag: "https://flagcdn.com/w20/ne.png" },
+        "gn": { phoneCode: "+224", flag: "https://flagcdn.com/w20/gn.png" },
+        "gm": { phoneCode: "+220", flag: "https://flagcdn.com/w20/gm.png" },
+        "tg": { phoneCode: "+228", flag: "https://flagcdn.com/w20/tg.png" },
+        "sn": { phoneCode: "+221", flag: "https://flagcdn.com/w20/sn.png" },
+        "ml": { phoneCode: "+223", flag: "https://flagcdn.com/w20/ml.png" },
+      };
+
+      // Currency symbols mapping
+      const currencySymbols = {
+        "INR": "₹",
+        "MAD": "MAD",
+        "SLE": "SLE",
+        "XOF": "CFA",
+        "GNF": "FG",
+        "GMD": "GMD"
+      };
+
       // Configurations for forms
       (() => {
       const formConfigs = {
@@ -136,8 +176,8 @@
                 { type: "tel", placeholder: "{{__('messages.contact_number')}}" },
                 { type: "text", placeholder: "{{__('messages.from_loc')}}" },
                 { type: "text", placeholder: "{{__('messages.to_loc')}}" },
-                { type: "date", placeholder: "From Date" },
-                { type: "date", placeholder: "To Date" },
+                { type: "date", placeholder: "{{__('messages.from_date')}}" },
+                { type: "date", placeholder: "{{__('messages.to_date')}}" },
             ],
         },
         airport: {
@@ -148,15 +188,14 @@
                 { type: "tel", placeholder: "{{__('messages.contact_number')}}" },
                 { type: "text", placeholder: "{{__('messages.from_loc')}}" },
                 { type: "text", placeholder: "{{__('messages.to_loc')}}" },
-                { type: "date", placeholder: "From Date" },
-                { type: "date", placeholder: "To Date" },
+                { type: "date", placeholder: "{{__('messages.from_date')}}" },
+                { type: "date", placeholder: "{{__('messages.to_date')}}" },
             ],
         },
     };
 
-       // Rate configuration (change here if needed)
-      const perDayRate = 100;
-      document.getElementById("ratePerDay").textContent = perDayRate;
+       // Base rate configuration (in INR)
+      const baseRatePerDay = 100;
 
       const bgImage = document.getElementById("bgImage");
       const formWrapper = document.getElementById("formWrapper");
@@ -165,13 +204,64 @@
       const totalAmountEl = document.getElementById("totalAmount");
       const successPopup = document.getElementById("success-popup");
       const successClose = document.getElementById("success-btn");
+      const countryCodeDisplay = document.getElementById("countryCodeDisplay");
+      const currencyCodeDisplay = document.getElementById("currencyCodeDisplay");
+      const ratePerDayDisplay = document.getElementById("ratePerDayDisplay");
 
       const msPerDay = 24 * 60 * 60 * 1000;
+      
+      // Track current currency (default to India)
+      let currentCurrency = currencyData.find(c => c.code === "in");
 
       function parseDateInput(val) {
-        // parse YYYY-MM-DD into a local Date at midnight
         const [y, m, d] = val.split("-").map(Number);
         return new Date(y, m - 1, d);
+      }
+
+      // Update currency display - FIXED VERSION
+      function updateCurrencyDisplay() {
+        console.log("Updating currency to:", currentCurrency);
+        
+        countryCodeDisplay.textContent = currentCurrency.name.toUpperCase();
+        currencyCodeDisplay.textContent = currentCurrency.currency;
+        
+        // Calculate and display the converted rate
+        const convertedRate = baseRatePerDay * currentCurrency.rate;
+        console.log("Base rate:", baseRatePerDay, "Conversion rate:", currentCurrency.rate, "Converted:", convertedRate);
+        
+        ratePerDayDisplay.textContent = convertedRate.toFixed(2);
+        
+        // Update the rate per day display
+        document.getElementById("ratePerDay").textContent = convertedRate.toFixed(2);
+        
+        // Update the total amount
+        updateTotalAmount();
+      }
+
+      // Update total amount based on days and currency - FIXED VERSION
+      function updateTotalAmount() {
+        const days = parseInt(daysCountEl.textContent, 10);
+        const total = days > 0 ? days * baseRatePerDay * currentCurrency.rate : 0;
+        const symbol = currencySymbols[currentCurrency.currency] || currentCurrency.currency;
+        
+        console.log("Total calculation:", days, "days *", baseRatePerDay, "base *", currentCurrency.rate, "rate =", total);
+        
+        totalAmountEl.textContent = `${symbol} ${total.toFixed(2)}`;
+      }
+
+      // Get country data for dropdown
+      function getCountryData() {
+        return currencyData.map(country => {
+          const phoneInfo = countryPhoneMap[country.code];
+          return {
+            code: country.code,
+            name: country.name,
+            phoneCode: phoneInfo ? phoneInfo.phoneCode : "+000",
+            flag: phoneInfo ? phoneInfo.flag : "https://flagcdn.com/w20/_unknown.png",
+            currency: country.currency,
+            rate: country.rate
+          };
+        });
       }
 
       // Render form dynamically
@@ -188,13 +278,7 @@
         const form = document.createElement("form");
         form.className = "w-full grid grid-cols-1 sm:grid-cols-2 gap-4";
 
-        const countryData = [
-          { code: "+91", flag: "https://flagcdn.com/w20/in.png" },
-          { code: "+1", flag: "https://flagcdn.com/w20/us.png" },
-          { code: "+44", flag: "https://flagcdn.com/w20/gb.png" },
-          { code: "+61", flag: "https://flagcdn.com/w20/au.png" },
-          { code: "+971", flag: "https://flagcdn.com/w20/ae.png" },
-        ];
+        const countryData = getCountryData();
 
         config.fields.forEach((field) => {
           const fieldWrapper = document.createElement("div");
@@ -220,8 +304,8 @@
               "relative border border-borderDefault rounded-l-lg bg-borderDefault flex items-center px-2 cursor-pointer select-none";
 
             const selected = document.createElement("div");
-            selected.className = "flex items-center gap-1 py-2 w-16";
-            selected.innerHTML = `<img src="${countryData[0].flag}" class="w-5 h-auto"/> <span>${countryData[0].code}</span>`;
+            selected.className = "flex items-center gap-1 py-2 w-20";
+            selected.innerHTML = `<img src="${countryData[0].flag}" class="w-5 h-auto"/> <span>${countryData[0].phoneCode}</span>`;
 
             const caret = document.createElement("i");
             caret.className = "fa-solid fa-caret-down ml-1";
@@ -234,10 +318,19 @@
               const item = document.createElement("div");
               item.className =
                 "flex items-center justify-between px-2 py-1 hover:bg-gray-200 cursor-pointer";
-              item.innerHTML = `<img src="${c.flag}" class="w-5 h-auto"/> <span>${c.code}</span>`;
+              item.innerHTML = `<img src="${c.flag}" class="w-5 h-auto"/> <span>${c.phoneCode}</span>`;
+              item.dataset.countryCode = c.code;
               item.addEventListener("click", () => {
-                selected.innerHTML = `<img src="${c.flag}" class="w-5 h-auto"/> <span>${c.code}</span>`;
+                selected.innerHTML = `<img src="${c.flag}" class="w-5 h-auto"/> <span>${c.phoneCode}</span>`;
                 list.classList.add("hidden");
+                
+                // Update currency when country code changes
+                const selectedCountry = currencyData.find(country => country.code === c.code);
+                if (selectedCountry) {
+                  currentCurrency = selectedCountry;
+                  console.log("Currency changed to:", currentCurrency);
+                  updateCurrencyDisplay();
+                }
               });
               list.appendChild(item);
             });
@@ -258,7 +351,7 @@
             // Mobile input
             const input = document.createElement("input");
             input.type = "tel";
-            input.placeholder = "{{ __('messages.phone') }}";
+            input.placeholder = "Phone Number";
             input.maxLength = 10;
             input.required = true;
             input.className =
@@ -299,6 +392,7 @@
 
         setupDateListeners(form);
         updateSummaryForForm(form);
+        updateCurrencyDisplay();
 
         // Form submission
         form.addEventListener("submit", async (e) => {
@@ -326,6 +420,9 @@
 
           data.days = parseInt(daysCountEl.textContent, 10);
           data.total = totalAmountEl.textContent;
+          
+          // Show success popup
+          successPopup.classList.remove("hidden");
         });
       }
 
@@ -335,7 +432,6 @@
 
         if (fromInput) {
           fromInput.addEventListener("change", () => {
-            // set min for toInput for better UX
             if (toInput && fromInput.value) {
               toInput.min = fromInput.value;
             } else if (toInput) {
@@ -364,23 +460,18 @@
           const fromDate = parseDateInput(fromVal);
           const toDate = parseDateInput(toVal);
           if (toDate >= fromDate) {
-            // inclusive day count
             days = Math.floor((toDate - fromDate) / msPerDay) + 1;
             if (days < 1) days = 1;
           } else {
-            // invalid range
             days = 0;
           }
         } else {
-          // either or none selected -> keep default 1
           days = 1;
         }
 
-        const total = days > 0 ? days * perDayRate : 0;
-
         // Update UI
         daysCountEl.textContent = days;
-        totalAmountEl.textContent = `${total.toFixed(2)}`;
+        updateTotalAmount();
       }
 
       // Setup toggle buttons
@@ -406,9 +497,14 @@
       toggleBtns[0].classList.add("bg-[#006AFF]", "text-white");
       toggleBtns[1].classList.add("bg-borderDefault", "text-textPrimary");
 
+      // Success popup close handler
+      successClose.addEventListener("click", () => {
+        successPopup.classList.add("hidden");
+      });
+
       // client side validation
       document.addEventListener("click", function (e) {
-      if (e.target.matches("#booking-submit-btn")) {  // Use specific ID
+      if (e.target.matches("#booking-submit-btn")) {
         e.preventDefault();
 
           const form = document.querySelector("#formWrapper form");
@@ -428,10 +524,10 @@
             let error = "";
 
             if (!value) {
-              error = `{{ __('messages.please_enter') }} ${input.placeholder || "{{ __('messages.this_field') }}"}`;
+              error = `Please enter ${input.placeholder || "this field"}`;
             } else if (input.type === "tel") {
               if (!/^[0-9]{10}$/.test(value)) {
-                error = `{{ __('messages.contact_number_invalid') }}`;
+                error = "Contact number must be 10 digit";
               }
             } else if (input.type === "date") {
               if (!input.value) {
@@ -457,9 +553,6 @@
 
           if (isValid) {
             successPopup.classList.remove("hidden");
-            successClose.addEventListener("click", () => {
-              successPopup.classList.add("hidden");
-            });
             form.reset();
           }
         }
@@ -478,4 +571,3 @@
        })();
     </script>
     @include('includes.footer')
-

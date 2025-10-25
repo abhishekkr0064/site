@@ -35,6 +35,11 @@ body {
   background-color: #f0f8ff;
   border: 1px solid #006AFF;
 }
+.active-tab {
+  border-bottom: 2px solid #000; /* Or your desired style */
+  font-weight: bold;
+}
+
 
 /* header css */
 #main-header nav {
@@ -75,4 +80,38 @@ h2 {
 .blogs-swiper .swiper-slide > div {
   width: 100%; /* full responsive */
   max-width: 320px; /* optional max width */
+}
+.review-swiper {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  touch-action: pan-y; /* allow vertical scrolling but not horizontal reflow */
+}
+
+/* Lock the height for consistent layout */
+.review-swiper .swiper-slide {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* For mobile only */
+@media (max-width: 768px) {
+  html, body {
+    height: 100%;
+    overflow-x: hidden;
+  }
+
+  .review-swiper {
+    min-height: 300px; /* adjust for your design */
+  }
+
+  .review-swiper .swiper-wrapper {
+    transition-timing-function: linear !important;
+  }
+}
+.review-swiper .swiper-slide > div {
+  width: 100%; /* full responsive */
+  max-width: 600px; /* optional max width */
 }

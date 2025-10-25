@@ -100,7 +100,7 @@
 
       <!-- Bottom Text -->
       <div class="mt-10 text-center text-textSecondary text-sm">
-        © 2025 CarEnt. All rights reserved.
+        <i class="fa-regular fa-copyright"></i> 2025 CarEnt. All rights reserved.
       </div>
     </footer>
     <!-- WhatsApp Button (Bottom Left) -->
@@ -128,8 +128,9 @@
       <button
         id="callbackBtn"
         onclick="openModal()"
-        class="hidden fixed top-1/2 -right-14 -translate-y-1/2 -rotate-90 bg-primary text-bgPrimary text-sm px-3 py-2 rounded-t-lg hover:bg-primaryHover transition z-50"
-      >
+        class="fixed top-1/2 -right-14 -translate-y-1/2 -rotate-90 bg-primary text-bgPrimary 
+        text-sm px-3 py-2 rounded-t-lg hover:bg-primaryHover transition z-50 hidden"
+        >
         {{__('messages.request_a_call_back')}}
       </button>
     </div>
@@ -137,8 +138,8 @@
     <!-- Modal Background -->
     <div
       id="callbackModal"
-      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50"
-    >
+      class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 overflow-y-auto"
+      >
       <!-- Modal Content -->
       <div class="bg-white w-11/12 max-w-sm rounded-2xl shadow-lg p-6 relative">
         <!-- Close Button -->
@@ -170,21 +171,43 @@
               name="name"
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
               placeholder="{{__('messages.enter_your_name')}}"
-              required
+              
             />
           </div>
+          <div>
+            {{-- <label class="relative block text-sm font-medium mb-1"
+              >Contact Number</label> --}}
+               <div
+              class="flex items-center border border-borderDefault rounded-lg overflow-hidden"
+            >
+              <div
+                id="countrySelect"
+                class="relative py-3 w-24 px-1 bg-gray-100 border-r border-borderDefault text-sm flex items-center justify-between cursor-pointer"
+              >
+                <span
+                  id="selectedCountry"
+                  class="flex items-center gap-1 text-sm"
+                  ><img src="https://flagcdn.com/w20/in.png" alt="in" /> <span></span>+91</span></span
+                >
+                <i class="fa-solid fa-caret-down"></i>
+              </div>
 
-          <div
-            class="w-full flex items-center gap-2 border border-gray-300 rounded-lg"
-          >
-            <i class="fas fa-phone text-textSecondary pl-2"></i>
-            <input
-              type="number"
-              name="phone"
-              class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
-              placeholder="{{__('messages.phone')}}"
-              required
-            />
+              <input
+                id="contactNumber"
+                type="tel"
+                name="contact"
+                placeholder="{{__('messages.phone')}}"
+                maxlength="10"
+                oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)"
+                class="w-full p-2 focus:outline-none"
+                
+              />
+            </div>
+
+            <div
+              id="countryList"
+              class="hidden absolute bg-white w-24 mt-1 border border-borderDefault rounded-md shadow-md z-50"
+            ></div>
           </div>
 
           <div
@@ -196,7 +219,7 @@
               name="email"
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
               placeholder="{{__('messages.email_add')}}"
-              required
+             
             />
           </div>
 
@@ -209,7 +232,7 @@
               name="from_location"
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
               placeholder="{{__('messages.from_location')}}"
-              required
+             
             />
           </div>
 
@@ -222,22 +245,26 @@
               name="to_location"
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-r-lg"
               placeholder="{{__('messages.to_location')}}"
-              required
+              
             />
           </div>
 
           <div
             class="w-full flex items-center gap-2 border border-gray-300 rounded-lg"
           >
+         
             <textarea
               name="message"
               id=""
               class="w-full h-full p-2 border-none focus:outline-none focus:ring-0 rounded-lg"
               placeholder="{{__('messages.message')}}"
-              required
+             
             ></textarea>
+            
           </div>
-
+          <p class="text-primary text-right underline cursor-pointer" id="clear-form">
+            {{__('messages.clear')}}
+          </p>
           <button
             type="submit"
             class="w-full bg-primary text-bgPrimary py-2 rounded-lg hover:bg-primaryHover transition"
@@ -247,11 +274,43 @@
         </form>
       </div>
     </div>
+      <div
+      class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
+      id="success-popup"
+    >
+      <div
+        class="shadow-lg rounded-lg bg-white w-72 text-center overflow-hidden"
+      >
+        <!-- Top Section -->
+        <div class="p-6">
+          <h1 class="text-lg font-semibold mb-2">
+            {{ __('messages.success') }}
+          </h1>
+          <p class="text-gray-700 text-sm">
+            Your request has been sent to our team.
+          </p>
+        </div>
+
+        <!-- Divider -->
+        <hr class="border-t border-gray-300" />
+
+        <!-- Bottom Section -->
+        <div class="p-4">
+          <button
+            class="text-white bg-[#006AFF] px-6 py-2 rounded hover:bg-blue-700 transition w-fit"
+            id="success-btn"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     {{-- @vite(['resources/js/script.js']) --}}
     @include('includes.localization')
-    <script src="{{ asset('js/script.js') }}"></script>
+    {{-- <script src="{{ asset('js/script.js') }}"></script> --}}
+    <script src="{{ asset('js/script.js?v=' . time()) }}"></script>
 
 </body>
 </html>

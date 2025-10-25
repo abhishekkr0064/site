@@ -10,6 +10,9 @@ return [
     'currency' => 'Devise',
     'search_country' => 'Rechercher un pays...',
     'apply' => 'Appliquer',
+    'is_required'=>'est requis',
+    'clear'=>'claire',
+    'request_sent'=>'Vos commentaires sont très importants pour notre amélioration.',
 
     // Form Model
     'model_msg1' => 'Entrez votre email pour profiter de la meilleure expérience',
@@ -125,10 +128,11 @@ return [
     'contact_number'=>'Numéro de contact',
     'from_loc'=>'Lieu de départ',
     'to_loc'=>'Lieu de destination',
-    'from_date'=>'Date de départ',
-    'to_date'=>'Date de fin',
+    'from_date'=>' de départ',
+    'to_date'=>' de fin',
     'submit_air'=>'Soumettre l\'aéroport',
     'submit_rent'=>'Soumettre la location',
+    'contact_us_msg'=>'Le numéro de contact doit comporter exactement 10 chiffres.',
 
     // About us pages
     'enquiry'=>'Enquête',
@@ -146,6 +150,10 @@ return [
     'from'=>'De',
     'to'=>'À',
     'submit_enquiry'=>'Envoyer la demande',
+    'enter_contact_number'=>'Entrez le numéro de contact',
+    'enter_email_address'=>'Entrez l\'adresse e-mail',
+    'enter_starting_location'=>'Entrez le lieu de départ',
+    'enter_destination'=>'Entrez la destination',
 
     // list
     'listing'=>'Annonce',
@@ -153,10 +161,14 @@ return [
     'list'=>'(8 voitures trouvées)',
     'per_page'=>'Par page',
     'price'=>'Prix : du plus bas au plus élevé',
+    
 
     // feedback
     'language'=>'Langue',
     'feedback'=>'Retour d\'information',
+    'enter_details'=>'Entrez les détails',
+    'your_feedback'=>'Votre retour est précieux pour nous !',
+    'write_your_feedback'=>'Écrivez votre retour ici...',
     'rate_us'=>'Évaluez-nous',
     'logout'=>'Se déconnecter',
     'contact_us_desc'=>'Bienvenue chez Carent, votre application de location de voitures de confiance. Ces conditions générales
@@ -165,5 +177,14 @@ return [
     'please_rate_us'=>'Veuillez nous évaluer',
     'rate_us_desc'=>'Votre avis nous aidera à améliorer nos services pour résoudre votre problème !',
     'submit_feedback'=>'Soumettre des commentaires',
-    'wel'=>'Bienvenue sur Carent, votre application de location de voitures de confiance. Les présentes Conditions générales (les « Conditions ») régissent votre utilisation de l\'application mobile Carent et des services associés fournis dans plusieurs pays. En utilisant notre application, vous acceptez ces Conditions. En cas de désaccord, veuillez vous abstenir d\'utiliser nos services.'
+    'wel'=>'Chez CARENT, nous valorisons les expériences de nos clients. Découvrez les retours et avis des locataires à travers les Émirats arabes unis, partageant comment nos services répondent à leurs besoins en matière de commodité, de fiabilité et de qualité. Votre satisfaction est notre priorité, et nous vous invitons à partager votre propre expérience pour nous aider à nous améliorer continuellement.',
+    'error_msg'=>'Ce champ est obligatoire.',
+    'contact_msg'=>'Le numéro de contact doit comporter exactement 10 chiffres.',
+    'email_msg'=>'Veuillez entrer une adresse e-mail valide.',
+    'success'=>'Succès',
+    'success_msg'=>'Vos commentaires ont été soumis avec succès.',
+    'enquiry_msg'=>'Votre enquête a été soumise',
+    'booking_msg'=>'Votre réservation a été soumise',
+    'please_enter'=>'Veuillez entrer',
+    'this_field'=>'ce champ',
 ];

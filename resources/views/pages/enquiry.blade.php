@@ -31,7 +31,7 @@
 
         <!-- Right: Enquiry Form -->
         <form
-          id="enquiryForm"
+          id="enquiryFormPage"
           class="w-full md:w-1/2 space-y-6 p-5 bg-white"
           novalidate
         >
@@ -56,7 +56,7 @@
               <input
                 type="text"
                 name="from"
-                placeholder="Enter starting location"
+                placeholder="{{ __('messages.enter_starting_location') }}"
                 class="w-full rounded-lg p-2.5 border border-borderDefault focus:ring-1 focus:ring-primary focus:outline-none"
                 required
               />
@@ -70,26 +70,49 @@
               <input
                 type="text"
                 name="to"
-                placeholder="Enter destination"
+                placeholder="{{ __('messages.enter_destination') }}"
                 class="w-full rounded-lg p-2.5 border border-borderDefault focus:ring-1 focus:ring-primary focus:outline-none"
                 required
               />
             </div>
 
-            <!-- Contact Number -->
-            <div>
-              <label class="block text-sm font-medium mb-1">
-                {{ __('messages.contact_number') }}
-              </label>
-              <input
-                type="tel"
-                name="contact"
-                 oninput="this.value=this.value.replace(/[^0-9]/g,''); if(this.value.length>10)this.value=this.value.slice(0,10);"
-                maxlength="10"
-                placeholder="Enter contact number"
-                class="w-full rounded-lg p-2.5 border border-borderDefault focus:ring-1 focus:ring-primary focus:outline-none"
-                required
-              />
+             <!-- Contact Number with Country Code -->
+              <div>
+              <label class="relative block text-sm font-medium mb-1"
+                >Contact Number</label
+              >
+
+              <div
+                class="flex items-center border border-borderDefault rounded-lg overflow-hidden focus-within:ring-1 focus-within:ring-primary"
+              >
+                <div
+                  id="countrySelectEnquiry"
+                  class="relative py-3 w-24 px-1 bg-gray-100 border-r border-borderDefault text-sm flex items-center justify-between cursor-pointer"
+                >
+                  <span
+                    id="selectedCountryEnquiry"
+                    class="flex items-center gap-1 text-sm"
+                    ></span
+                  >
+                  <i class="fa-solid fa-caret-down"></i>
+                </div>
+
+                <input
+                  id="contactNumberEnquiry"
+                  type="tel"
+                  name="contact"
+                  placeholder="{{ __('messages.enter_contact_number') }}"
+                  maxlength="10"
+                  oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)"
+                  class="w-full p-2 focus:outline-none"
+                  required
+                />
+              </div>
+
+              <div
+                id="countryListEnquiry"
+                class="hidden absolute bg-white w-24 mt-1 border border-borderDefault rounded-md shadow-md z-50"
+              ></div>
             </div>
 
             <!-- Contact Email -->
@@ -101,7 +124,7 @@
               <input
                 type="email"
                 name="email"
-                placeholder="Enter email address"
+                placeholder="{{ __('messages.enter_email_address') }}"
                 class="w-full rounded-lg p-2.5 border border-borderDefault focus:ring-1 focus:ring-primary focus:outline-none"
                 required
               />
@@ -118,62 +141,219 @@
         </form>
       </main>
     </section>
-    <script>
-      document
-        .getElementById("enquiryForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
+     <!--succes submit popup -->
+    <div
+      class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
+      id="success-popup"
+    >
+      <div
+        class="shadow-lg rounded-lg bg-white w-72 text-center overflow-hidden"
+      >
+        <div class="p-6">
+          <h1 class="text-lg font-semibold mb-2">
+            {{ __('messages.success') }}
+          </h1>
+          <p class="text-gray-700 text-sm">
+            {{ __('messages.enquiry_msg') }}
+          </p>
+        </div>
 
-          const form = e.target;
-          let isValid = true;
+        <hr class="border-t border-gray-300" />
 
-          // Remove previous error messages
-          form.querySelectorAll(".error-text").forEach((el) => el.remove());
-          form
-            .querySelectorAll("input")
-            .forEach((input) => input.classList.remove("border-red-500"));
+        <div class="p-4">
+          <button
+            class="text-white bg-[#006AFF] px-6 py-2 rounded hover:bg-blue-700 transition w-fit"
+            id="success-btn"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
 
-          form.querySelectorAll("input").forEach((input) => {
-            const value = input.value.trim();
-            let error = "";
+   <script>
+      (() => {
+        // Renamed all variables to avoid conflicts
+        const form = document.getElementById("enquiryForm");
+        const enquiryCountrySelect = document.getElementById("countrySelectEnquiry");
+        const enquiryCountryList = document.getElementById("countryListEnquiry");
+        const enquirySelectedCountry = document.getElementById("selectedCountryEnquiry");
+        const enquiryContactNumber = document.getElementById("contactNumberEnquiry");
+        const enquiryForm = document.getElementById("enquiryFormPage");
+        const successPopup = document.getElementById("success-popup");
+        const successClose = document.getElementById("success-btn");
 
-            if (!value) {
-              error = `Please  ${input.placeholder.toLowerCase()}`;
-            } else if (input.type === "tel") {
-              if (!/^[0-9]{10}$/.test(value)) {
-                error = "Please enter a valid 10-digit contact number";
-              }
-            } else if (input.type === "email") {
-              const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-              if (!emailPattern.test(value)) {
-                error = "Please enter a valid email address";
-              }
-            }
+        // Country data
+        const enquiryCountryData = [
+          { code: "+91", flag: "https://flagcdn.com/w20/in.png" },
+          { code: "+1", flag: "https://flagcdn.com/w20/us.png" },
+          { code: "+44", flag: "https://flagcdn.com/w20/gb.png" },
+          { code: "+61", flag: "https://flagcdn.com/w20/au.png" },
+          { code: "+971", flag: "https://flagcdn.com/w20/ae.png" },
+        ];
 
-            if (error) {
-              isValid = false;
-              input.classList.add("border-red-500");
+        // Initialize selected country (default India)
+        let enquirySelected = enquiryCountryData[0];
+        updateEnquirySelectedCountry(enquirySelected);
 
-              const errorMsg = document.createElement("p");
-              errorMsg.className = "error-text text-red-600 text-sm mt-1";
-              errorMsg.textContent = error;
-              input.insertAdjacentElement("afterend", errorMsg);
-            }
+        // Render country dropdown list
+        function renderEnquiryCountryList() {
+          enquiryCountryList.innerHTML = "";
+          enquiryCountryData.forEach((country) => {
+            const item = document.createElement("div");
+            item.className =
+              "p-2 flex items-center justify-between hover:bg-gray-100 cursor-pointer";
+
+            const flag = document.createElement("img");
+            flag.src = country.flag;
+            flag.alt = country.code;
+            flag.className = "w-5 h-auto";
+
+            const code = document.createElement("span");
+            code.textContent = country.code;
+
+            item.appendChild(flag);
+            item.appendChild(code);
+
+            item.addEventListener("click", () => {
+              enquirySelected = country;
+              updateEnquirySelectedCountry(country);
+              toggleEnquiryDropdown(false);
+            });
+
+            enquiryCountryList.appendChild(item);
           });
+        }
 
-          if (isValid) {
-            alert("Enquiry submitted successfully ✅");
-            form.reset();
+        // Update displayed selected country
+        function updateEnquirySelectedCountry(country) {
+          enquirySelectedCountry.innerHTML = `
+      <img src="${country.flag}" alt="${country.code}" class="w-5 h-auto">
+      <span>${country.code}</span>
+    `;
+        }
+
+        // Toggle dropdown visibility
+        function toggleEnquiryDropdown(show = null) {
+          const isHidden = enquiryCountryList.classList.contains("hidden");
+          if (show === true || (show === null && isHidden)) {
+            renderEnquiryCountryList();
+            enquiryCountryList.classList.remove("hidden");
+          } else {
+            enquiryCountryList.classList.add("hidden");
+          }
+        }
+
+        // Event handlers
+        enquiryCountrySelect.addEventListener("click", (e) => {
+          e.stopPropagation();
+          toggleEnquiryDropdown();
+        });
+
+        document.addEventListener("click", () => toggleEnquiryDropdown(false));
+
+        //  Phone number input validation (10 digits only)
+        enquiryContactNumber.addEventListener("input", function () {
+          this.value = this.value.replace(/[^0-9]/g, "");
+          if (this.value.length > 10) this.value = this.value.slice(0, 10);
+        });
+
+        enquiryContactNumber.addEventListener("blur", function () {
+          const errorMsg = this.parentNode.querySelector(".error-text-enquiry");
+          if (this.value.length < 10) {
+            if (!errorMsg)
+              showEnquiryError(this, "Please enter a valid 10-digit number");
+          } else if (errorMsg) {
+            errorMsg.remove();
+            this.classList.remove("border-red-500");
           }
         });
 
-      // Clear error when user types again
-      document.querySelectorAll("#enquiryForm input").forEach((input) => {
-        input.addEventListener("input", () => {
-          input.classList.remove("border-red-500");
-          const errorEl = input.parentNode.querySelector(".error-text");
-          if (errorEl) errorEl.remove();
+        // Utility: Show inline error
+        function showEnquiryError(input, message) {
+          input.classList.add("border-red-500");
+          const errorEl = document.createElement("p");
+          errorEl.className = "error-text-enquiry text-red-600 text-sm mt-1";
+          errorEl.textContent = message;
+          const container = input.closest("div") || input.parentNode;
+          if (input.type === "tel")
+            container.insertAdjacentElement("afterend", errorEl);
+          else input.insertAdjacentElement("afterend", errorEl);
+        }
+
+        // Clear error when user types again
+        enquiryForm.querySelectorAll("input").forEach((input) => {
+          input.addEventListener("input", () => {
+            input.classList.remove("border-red-500");
+            const errorEl = input.parentNode.querySelector(".error-text-enquiry");
+            if (errorEl) errorEl.remove();
+          });
         });
-      });
+
+        // Handle form submission (with API)
+        enquiryForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // Remove old errors
+          enquiryForm.querySelectorAll(".error-text-enquiry").forEach((el) => el.remove());
+          let isValid = true;
+
+          const enquiryFormData = {};
+          enquiryForm.querySelectorAll("input").forEach((input) => {
+            const value = input.value.trim();
+            const placeholder = input.placeholder.toLowerCase();
+            let error = "";
+
+            if (!value) {
+              error = `Please  ${placeholder}`;
+            } else if (input.type === "email") {
+              const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+              if (!emailPattern.test(value)) error = "Invalid email address";
+            } else if (input.type === "tel" && value.length !== 10) {
+              error = "Contact number must be 10 digits";
+            }
+
+            if (error) {
+              showEnquiryError(input, error);
+              isValid = false;
+            }
+
+            enquiryFormData[input.name] = value;
+          });
+
+          if (!isValid) return;
+          successPopup.classList.remove("hidden");
+          successClose.addEventListener("click", () => {
+            successPopup.classList.add("hidden");
+            enquiryForm.reset();
+          });
+
+          
+          enquiryFormData.phone = `${enquirySelected.code}${enquiryFormData.contactNumber}`;
+
+          // try {
+          //   // Example API endpoint — replace with your backend URL
+          //   const res = localStorage.setItem(
+          //     "enquiryFormData",
+          //     JSON.stringify(enquiryFormData)
+          //   );
+            // await fetch("https://example.com/api/enquiry", {
+            //   method: "POST",
+            //   headers: { "Content-Type": "application/json" },
+            //   body: JSON.stringify(enquiryFormData),
+            // });
+
+            // if (!res.ok) throw new Error("Network response failed");
+
+            // const data = await res.json();
+          //   const data = localStorage.getItem("enquiryFormData");
+
+          //   console.log("Server Response:", data);
+          //   enquiryForm.reset();
+          // } catch (error) {
+          //   console.error("Error submitting form:", error);
+          // }
+        });
+      })();
     </script>
 @include('includes.footer')

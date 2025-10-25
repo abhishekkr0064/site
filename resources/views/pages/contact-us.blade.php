@@ -3,9 +3,13 @@
     <!-- Breadcrumb -->
     <nav class="p-4 lg:p-6 text-sm mt-28">
       <ol class="flex items-center space-x-2 text-textSecondary">
-        <li><a href="/" class="hover:underline">Home</a></li>
+        <li><a href="/" class="hover:underline">
+        {{ __('messages.home') }}
+        </a></li>
         <li>/</li>
-        <li class="">Contact Us</li>
+        <li >
+          {{ __('messages.contact_us') }}
+        </li>
       </ol>
     </nav>
 
@@ -20,15 +24,11 @@
     </div>
     <header class="text-center py-8 bg-primary">
       <h1 class="text-3xl text-start font-bold text-bgPrimary pl-4 md:pl-6">
-        Contact Us
+        {{ __('messages.contact_us') }}
       </h1>
     </header>
     <p class="text-textPrimary mt-2 p-4 md:p-6">
-      Welcome to Carent, your trusted car rental app. These Terms and Conditions
-      (“Terms”) govern your use of the Carent mobile application and associated
-      services provided across multiple countries. By using our app, you agree
-      to be bound by these Terms. If you do not agree, please refrain from using
-      our services.
+     {{ __('messages.contact_us_desc') }}
     </p>
 
     <!-- Contact List -->

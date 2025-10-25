@@ -110,7 +110,7 @@
             <i data-feather="phone" class="text-[#E50914] w-5 h-5"></i>
           </div>
           <div class="">
-            <h2 class="text-lg font-semibold">{{_('messages.contact_info')}}</h2>
+            <h2 class="text-lg font-semibold">{{__('messages.contact_info')}}</h2>
             <p class="">
              {{__('messages.contact_desc')}}
               <a href="tel:+221773328591" class="text-[#E50914] font-medium"

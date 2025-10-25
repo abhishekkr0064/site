@@ -20,14 +20,18 @@
               class="toggle-btn flex items-center px-5 py-2 rounded-full shadow transition"
             >
               <img src="{{asset('images/rental-car.svg')}}" alt="car" />
-              <span class="ml-2">Rental</span>
+              <span class="ml-2">
+                {{ __('messages.rental') }}
+              </span>
             </button>
             <button
               id="airportBtn"
               class="toggle-btn flex items-center px-5 py-2 rounded-full shadow transition"
             >
               <img src="{{asset('images/airport-icon.svg')}}" alt="airport" />
-              <span class="ml-2">Airport</span>
+              <span class="ml-2">
+                {{ __('messages.airport') }}
+              </span>
             </button>
           </div>
           <h2 class="text-xl hidden md:block">{{__('messages.my_bookings')}}</h2>

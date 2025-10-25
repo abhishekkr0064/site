@@ -10,6 +10,8 @@ return [
     'search_country' => 'Search for a country...',
     'apply' => 'Apply',
     'see_our_policy'=>'See our policies for',
+    'is_required'=>'is required',
+    'clear'=>'clear',
 
     // Model Form
     'etr_reg_pass'=>'Enter Registered Password',
@@ -49,7 +51,7 @@ return [
     'allied' => 'Allied Business',
     'part'=> ' & Partners',
     'check_our' => 'Check Our',
-    'blog' => 'blog',
+    'blog' => 'Blog',
     'impact_of_tech' => 'Impact of Technology on the Car Rental Industry',
     'desc' => 'The car rental industry has undergone significant transformations in recent years, 
                 largely driven by advancements in technology. From online booking platforms to mobile apps, 
@@ -125,8 +127,8 @@ return [
     'contact_number'=>'Contact Number',
     'from_loc'=>'From Location',
     'to_loc'=>'To Location',
-    'from_date'=>'From Date',
-    'to_date'=>'To Date',
+    'from_date'=>'From',
+    'to_date'=>'To ',
     'submit_air'=>'Submit Airport',
     'submit_rent'=>'Submit Rental',
 
@@ -146,6 +148,10 @@ return [
     'from'=>'From',
     'to'=>'To',
     'submit_enquiry'=>'Submit Enquiry',
+    'enter_contact_number'=>'Enter contact number',
+    'enter_email_address'=>'Enter email address',
+    'enter_starting_location'=>'Enter starting location',
+    'enter_destination'=>'Enter destination',
 
     // Carlist
     'listing'=>'Listing',
@@ -153,10 +159,14 @@ return [
     'list'=>'(8 cars found)',
     'per_page'=>'Per Page',
     'price'=>'Price: Low to High',
+    'error_msg'=>'This field is required.',
     // profile
     'language'=>'Language',
     'feedback'=>'Feedback',
+    'your_feedback'=>'Your Feedback is valuable to us!',
+    'write_your_feedback'=>'Write your feedback here...',
     'rate_us'=>'Rate Us',
+    'enter_details'=>'Enter Details',
     'logout'=>'Log Out',
     'contact_us_desc'=>'Welcome to Carent, your trusted car rental app. These Terms and Conditions 
                     (“Terms”) govern your use of theCarent mobile application and associated services 
@@ -166,11 +176,16 @@ return [
     'please_rate_us'=>'Please rate us',
     'rate_us_desc'=>'Your review will help us improve our services to help your problem!',
     'submit_feedback'=>'Submit Feedback',
-    'wel'=>'Welcome to Carent, your trusted car rental app. These Terms and
-          Conditions (“Terms”) govern your use of theCarent mobile application
-          and associated services provided across multiple countries. By using
-          our app, you agree to be bound by these Terms. If you do not agree,
-          please refrain from using our services.',
+    'wel'=>'At CARENT, we value our customers’ experiences. Explore feedback and reviews from renters across the UAE, sharing how our services meet their needs for convenience, reliability, and quality. Your satisfaction is our priority, and we invite you to share your own experience to help us continually improve.',
+    'contact_us_msg'=>'Contact number must be exactly 10 digits.',
+    'email_msg'=>'Please enter a valid email address.',
+    'success'=>'Success',
+    'success_msg'=>'Your feedback has been submitted successfully.',
+    'enquiry_msg'=>'Your enquiry has been submitted',
+    'booking_msg'=>'Your booking has been submitted',
+    'request_sent'=>'Your feedback is very important for our improvement.',
+    'please_enter'=>'Please enter',
+    'this_field'=>'this field',
 
 
 

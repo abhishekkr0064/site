@@ -24,14 +24,16 @@
             id="language-trigger"
             class="relative cursor-pointer hover:text-primaryHover"
           >
+           
+            <span class="currency-selection">IN</span>
+            | 
             <i class="fas fa-globe"></i> 
             @if(app()->getLocale() == 'en') 
               EN 
               @else
                 FR
             @endif
-            |
-            <span id="currency-selection">INR</span>
+           
           </div>
 
          <div class="register-container">
@@ -68,14 +70,14 @@
           id="mobile-language-trigger"
           class="relative cursor-pointer hover:text-primaryHover"
         >
+         <span class="currency-selection">INR</span>|
           <i class="fas fa-globe"></i>
            @if(app()->getLocale() == 'en') 
               EN 
               @else
                 FR
             @endif
-            |
-          <span id="currency-selection">INR</span>
+            
         </div>
 
         <div class="register-container">
@@ -101,24 +103,23 @@
           ></i>
           
           <!-- buttons -->
-          <div class="w-full flex justify-between items-center gap-2 flex-wrap">
-            <button
-              id="lang-tab-btn"
-              class="py-2 px-4 bg-borderDefault rounded-2xl text-sm font-medium text-bgPrimary transition-colors duration-200"
-            >
-              <i class="fas fa-globe mr-2"></i> {{__('messages.language_region')}}
-            </button>
-
+          <div class="w-full flex justify-start items-center gap-2 flex-wrap">
             <button
               id="currency-tab-btn"
               class="py-2 px-4 bg-borderDefault rounded-2xl text-sm font-medium text-bgPrimary transition-colors duration-200"
             >
               <i class="fas fa-coins mr-2"></i> {{__('messages.currency')}}
             </button>
+               <button
+              id="lang-tab-btn"
+              class="py-2 px-4 bg-borderDefault rounded-2xl text-sm font-medium text-bgPrimary transition-colors duration-200"
+            >
+              <i class="fas fa-globe mr-2"></i> {{__('messages.language_region')}}
+            </button>
 
             <div class="w-full sm:w-fit my-4">
               <input
-                type="text"
+                type="hidden"
                 id="country-search"
                 placeholder="Search for a country..."
                 class="w-full px-4 py-2 border border-borderDefault rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
@@ -210,20 +211,22 @@
           </p>
         </div>
       </div>
+      
 
 
       <!-- Profile Sidebar -->
       <div
-        id="profile-popup"
+        id="profile-popup" 
         class="hidden fixed top-20 md:top-24 border border-borderDefault rounded-lg right-4 h-fit w-56 bg-white z-50 transform transition-transform duration-300 ease-in-out p-3 space-y-3"
       >
         <div
-          class="flex items-center gap-3 p-2 border border-borderDefault rounded-md"
+          class="flex items-center gap-3 p-2 border border-borderDefault rounded-md cursor-pointer" 
+          id="sidebar-language"
         >
           <i class="fas fa-globe"></i>
           <p class="text-md">
             Language
-            <span class="text-textSecondary text-xs pl-2" id="profile-country">
+            <span class="text-textSecondary text-xs pl-2" id="profile-language">
               @if(app()->getLocale() == 'en') 
               EN 
               @else
@@ -234,7 +237,8 @@
         </div>
 
         <div
-          class="flex items-center gap-3 p-2 border border-borderDefault rounded-md"
+          class="flex items-center gap-3 p-2 border border-borderDefault rounded-md cursor-pointer"
+          id="sidebar-currency"
         >
           <i class="fa-solid fa-money-check-dollar"></i>
           <p class="text-md">
@@ -331,12 +335,14 @@
           </div>
 
           <!-- Feedback Input -->
-          <textarea
-            id="feedback"
-            rows="4"
-            class="w-full border border-borderDefault rounded-lg p-3 text-sm sm:text-base focus:ring-1 focus:ring-primary focus:outline-none resize-none my-5"
-            placeholder="Write your feedback here..."
-          ></textarea>
+           <div class="w-full my-5">
+            <textarea
+              id="feedback"
+              rows="4"
+              class="w-full border border-borderDefault rounded-lg p-3 text-sm sm:text-base focus:ring-1 focus:ring-primary focus:outline-none resize-none"
+              placeholder="Write your feedback here..."
+            ></textarea>
+          </div>
 
           <!-- Submit Button -->
           <button
@@ -348,3 +354,32 @@
         </div>
       </div>
     </header>
+     <!--succes submit popup -->
+    <div
+      class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
+      id="success-popup"
+    >
+      <div
+        class="shadow-lg rounded-lg bg-white w-72 text-center overflow-hidden"
+      >
+        <div class="p-6">
+          <h1 class="text-lg font-semibold mb-2">
+            {{ __('messages.success') }}
+          </h1>
+          <p class="text-gray-700 text-sm">
+            {{ __('messages.request_sent') }}
+          </p>
+        </div>
+
+        <hr class="border-t border-gray-300" />
+
+        <div class="p-4">
+          <button
+            class="text-white bg-[#006AFF] px-6 py-2 rounded hover:bg-blue-700 transition w-fit"
+            id="success-btn"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
